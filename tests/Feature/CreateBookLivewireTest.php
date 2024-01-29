@@ -54,10 +54,10 @@ it('validates required fields', function () {
 });
 
 
-it('validates image format', function () {
+it('validates image format one', function () {
     Livewire::test(CreatePost::class)
         // ->set('title', 'my title')
-        // ->set('author', 'the author')
+        ->set('author', Faker\Factory::create()->name)
         // ->set('content', 'this is contetn')
         ->set('image', 'invalid-image-format')
         ->call('save')
@@ -77,3 +77,16 @@ it('validates unique title', function () {
         ->call('save')
         ->assertHasErrors(['title']);
 });
+
+
+
+it('validates image format', function () {
+    Livewire::test(CreatePost::class)
+        // ->set('title', 'my title')
+        // ->set('author', 'the author')
+        // ->set('content', 'this is contetn')
+        ->set('image', 'invalid-image-format')
+        ->call('save')
+        ->assertHasErrors(['image']);
+});
+
