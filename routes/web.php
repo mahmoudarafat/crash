@@ -5,6 +5,7 @@ use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\UserController;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,9 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
+
+    // return Carbon::parse('2023-11-01')->addDays(3)->format('Y-m-d');
+    return Carbon::parse('2023-11-01')->addDays(120)->format('Y-m-d');
     return view('welcome');
 })->name('home');
 
