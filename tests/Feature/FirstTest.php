@@ -10,8 +10,8 @@ beforeEach(function () {
 });
 
 
-it('is up', function () {
-    $this->get("/")->assertStatus(200); // landing page is alive
+it('is up', function () { // any response is valid [ home needs auth so 302 if not authenticated ] 
+    $this->get("/home")->assertStatus(302); // landing page is alive
 });
 
 it('can go home if authenticated', function () {
