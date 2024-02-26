@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  
+
+    <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+
+    <meta name="apple-mobile-web-app-title" content="CodePen">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+    <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg" color="#111" />
+
+
+
+  
+  
+
+  <title>CodePen - HTML5 &lt;details&gt; &amp; &lt;summary&gt; File Tree</title>
+
+    <link rel="canonical" href="https://codepen.io/Isaione/pen/GdzyJG">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+  
+<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=56mXUq3Ocw8Lj25wWTE9TkHP9gcwyv2i4kzbDdN2SLygCKSBsWmGt-JeYJT2CjIhORY_tdpdZfBzywNeLnsvPpCka1OlMvF7mbsUHta25hU" charset="UTF-8"></script><style>
+@charset "UTF-8";
+body {
+  background: #222;
+  color: #aaa;
+}
+
+.container {
+  position: relative;
+  display: block;
+  width: 600px;
+}
+
+details {
+  position: relative;
+  width: auto;
+  height: auto;
+  overflow: hidden;
+  max-height: 2.5em !important;
+  transition: all 0.1s ease;
+}
+details ::-webkit-details-marker {
+  display: none;
+}
+details > summary {
+  position: relative;
+  margin-top: 0.25em;
+  color: #99e;
+  padding: 0.1em 0.5em 0.2em;
+  background: #444;
+}
+details > summary:before {
+  content: "⊞";
+  color: #eee;
+  font-size: 0.5em;
+  margin-right: 0.5em;
+}
+details[open] > summary {
+  background: #66e;
+  color: #eee;
+}
+details[open] > summary:before {
+  content: "⊟";
+  color: #ccc;
+}
+
+.folder {
+  margin: 0 0 0.5em 0.86em;
+  padding: 0.5em 0em 0.5em 1.5em;
+  border-left: 0.1em #ccc dotted;
+  border-bottom: 0.1em #ccc dotted;
+}
+.folder p {
+  margin: 0;
+}
+
+details[open] {
+  height: auto;
+  max-height: 99em !important;
+  transition: all 1.2s ease;
+}
+
+details:not([open]) .folder {
+  height: 0px !important;
+}
+</style>
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+  
+  
+</head>
+
+<body translate="no">
+  <div class="container">
+  <details open="open">
+    <summary>myproject</summary>
+    <div class="folder">
+      <p>app.py</p>
+      <p>package.json</p>
+      <details open="open">
+        <summary>static</summary>
+        <div class="folder">
+          <details>
+            <summary>css</summary>
+            <div class="folder">
+              <p>index.css</p>
+              <p>template.css</p>
+            </div>
+          </details>
+          <details open="open">
+            <summary>js</summary>
+            <div class="folder">
+              <p>index.js</p>
+              <p>jquery-min.js</p>
+            </div>
+          </details>
+          <details>
+            <summary>img</summary>
+            <div class="folder">
+              <p>banner.png</p>
+              <p>foo.png</p>
+            </div>
+          </details>
+        </div>
+      </details>
+      <details open="open">
+        <summary>templates</summary>
+        <div class="folder">
+          <p>index.html</p>
+          <p>template.html</p>
+        </div>
+      </details>
+    </div>
+  </details>
+</div>
+  <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+  
+  
+</body>
+
+</html>
