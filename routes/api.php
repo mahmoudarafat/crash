@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\HomeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,35 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::post('login', function () {
+
+    $request = request();
+
+    $credentials = $request->only('email', 'password');
+
+    if (Auth::attempt($credentials)) {
+        // Authentication passed...
+        $user = Auth::user();
+        $token = $user->createToken('auth-token')->plainTextToken;
+
+        return response()->json(['token' => $token]);
+    }
+
+    return response()->json(['error' => 'Invalid credentials'], 401);
 });
+
+Route::middleware('auth:sanctum')
+    ->namespace('Api')
+    ->prefix('v1')
+    ->group(function () {
+
+        Route::get('/user', function (Request $request) {
+            return response()->json([
+                'status' => true,
+                'data' => $request->user()
+            ]);
+        });
+
+        Route::post('save-book', [HomeController::class, 'saveBook'])->name('api-save-book');
+    });

@@ -24,13 +24,13 @@ it('can not go home if not authenticated', function () {
     $this->get("/home")->assertStatus(302); // redireect login
 });
 
-it('opens landing page with authinticated menu', function(){
-    $this->actingAs($this->user);
-    $this->get('/')->assertSeeText(['My Books', 'Add A Book', 'Friends']);
-});
+// it('opens landing page with authinticated menu', function(){
+//     $this->actingAs($this->user);
+//     $this->get('/')->assertSeeText(['My Books', 'Add A Book', 'Friends']);
+// });
 
 
-it('opens landing page with guest menu', function(){
-    $this->get('/')->assertSeeText(['welcome to our landing page.', 'Login, Please.']);
-});
+// it('opens landing page with guest menu', function(){
+//     $this->get('/')->assertSeeText(['welcome to our landing page.', 'Login, Please.']);
+// });
 

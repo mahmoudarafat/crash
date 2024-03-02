@@ -21,7 +21,7 @@ use Carbon\Carbon;
 Route::get('/', function () {
 
     // return Carbon::parse('2023-11-01')->addDays(3)->format('Y-m-d');
-    return Carbon::parse('2023-11-01')->addDays(120)->format('Y-m-d');
+    // return Carbon::parse('2023-11-01')->addDays(120)->format('Y-m-d');
     return view('welcome');
 })->name('home');
 
