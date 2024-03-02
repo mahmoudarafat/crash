@@ -22,9 +22,9 @@ Route::post('login', function () {
     $request = request();
 
     $credentials = $request->only('email', 'password');
-
+    //return $credentials;
     if (Auth::attempt($credentials)) {
-        // Authentication passed...
+//        return 1111;
         $user = Auth::user();
         $token = $user->createToken('auth-token')->plainTextToken;
 
