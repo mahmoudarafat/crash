@@ -47,4 +47,11 @@ Route::middleware('auth:sanctum')
         });
 
         Route::post('save-book', [HomeController::class, 'saveBook'])->name('api-save-book');
+
+//        Route::soap('/soap/createBook', 'HomeController@saveBook')->name('soap-save-book');
+
     });
+
+
+
+
