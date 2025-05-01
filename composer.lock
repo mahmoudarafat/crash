@@ -367,12 +367,12 @@
             "type": "library",
             "extra": {
                 "laravel": {
-                    "providers": [
-                        "Artisaninweb\\SoapWrapper\\ServiceProvider"
-                    ],
                     "aliases": {
                         "SoapWrapper": "Artisaninweb\\SoapWrapper\\Facade"
-                    }
+                    },
+                    "providers": [
+                        "Artisaninweb\\SoapWrapper\\ServiceProvider"
+                    ]
                 }
             },
             "autoload": {
