@@ -7,12 +7,14 @@
     "require": {
         "php": "^8.1",
         "albadrsystems/laravel-crud-generator": "^9.2",
+        "artisaninweb/laravel-soap": "0.3.0.10",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.3",
-        "livewire/livewire": "^3.3"
+        "livewire/livewire": "^3.3",
+        "phpro/soap-client": "^3.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
