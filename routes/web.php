@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\UserController;
@@ -33,6 +34,13 @@ Route::get('/friends', [HomeController::class, 'friends'])->name('friends');
 Route::resource('books', PostController::class);
 Route::post('save-book', [HomeController::class, 'saveBook'])->name('save-book');
 
+Route::match(['get', 'post'], 'compare-database', function () {
+    return App\Services\Database\CompareChainer::index();
+});
+
+Route::post('db-compare-apply', function () {
+    return App\Services\Database\CompareChainer::applyUpdates();
+})->name('db-compare-apply');
 
 Route::get('bills/create', [BillController::class, 'create'])->name('bills.create');
 Route::post('bills', [BillController::class, 'store'])->name('bills.store');
@@ -52,9 +60,8 @@ Route::post(
     '\AlbadrSystems\GeneratorBuilder\Controllers\GeneratorBuilderController@generateFromFile'
 )->name('io_generator_builder_generate_from_file');
 
-
-
 Route::resource('users', UserController::class)->middleware('auth');
 
-
 Route::resource('regions', App\Http\Controllers\RegionController::class);
+
+include_once app_path('Services/Procedures/routes.php');
