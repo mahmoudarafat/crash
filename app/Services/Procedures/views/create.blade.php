@@ -6,7 +6,7 @@
     <div class="text-center">
         <h1 class="text-primary pager" style="margin-top:50px;">Create Procedure</h1>
         <hr>
-        <form id="edit-procedure" method="post" action="{{ route('procedures.save') }}">
+        <form id="edit-procedure" method="post" action="{{ route('procedures.save') }}" target="_blank">
             {{ csrf_field() }}
             <table class="table table-bordered">
                 <thead>
@@ -21,7 +21,7 @@
                                     <label>Execution Type:</label>
                                     <select name="type" id="type" class="form-control">
                                         <option value="test" data-hide="">Testing Only</option>
-                                        <option value="update" data-hide="val">Update</option>
+                                        <option value="update" data-hide="val">Create</option>
                                     </select>
                                     <hr> 
                                 </li>
@@ -62,6 +62,9 @@
 
         <a href="javascript:void(0)" id="do-save" class="btn btn-primary">Execute</a>
 
+        <br>
+        <br>
+        <br>
     </div>
 @endsection
 @section('script')
@@ -85,15 +88,7 @@
                         </td>
                     </tr>
                 `);
-            });
-
-            $(document).on('click', '#do-save', function() {
-                $(document).find('#edit-procedure').submit();
-            });
-            
-            $(document).on('click', '.del', function() {
-                let id = $(this).data('id');
-                $(document).find(`#tr-${id}`).remove();
+                $(document).find('#type').change();
             });
             
         })

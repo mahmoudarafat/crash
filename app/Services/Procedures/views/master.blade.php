@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="en" >
 <head>
     <meta charset="UTF-8">
     <title>Database Comparator</title>
@@ -78,7 +78,24 @@
         }else{
             $(document).find('.val').show();
         }
+        if($(this).val() == 'test'){
+            $(document).find('#edit-procedure').attr('target', '_blank');            
+        }else{
+            $(document).find('#edit-procedure').attr('target', '_self');
+        }
     });
+    
+
+    
+    $(document).on('click', '#do-save', function() {
+        $(document).find('#edit-procedure').submit();
+    });
+    
+    $(document).on('click', '.del', function() {
+        let id = $(this).data('id');
+        $(document).find(`#tr-${id}`).remove();
+    });
+
     
     $(document).ready(function () {
         $(document).find('#type').change();

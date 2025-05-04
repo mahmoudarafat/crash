@@ -6,7 +6,7 @@
     <div class="text-center">
         <h1 class="text-primary pager" style="margin-top:50px;">Prepare Procedure: {{ $procedure->title }}</h1>
         <hr>
-        <form id="edit-procedure" method="post" action="{{ route('procedures.update') }}">
+        <form id="edit-procedure" method="post" action="{{ route('procedures.update') }}" target="_blank">
             {{ csrf_field() }}
             <table class="table table-bordered">
                 <thead>
@@ -50,7 +50,8 @@
                                             </tr>
                                         
                                             @foreach ($parameters as $param)
-                                                <tr>
+                                                @php $id = rand(); @endphp
+                                                <tr id="tr-{{ $id }}">
                                                     <td>
                                                         <input required name="name[{{ $param }}]"
                                                             class="form-control" value="{{ $param }}" />
@@ -60,7 +61,7 @@
                                                             class="form-control val" value="" />
                                                     </td>
                                                     <td>
-                                                        <span class="del btn btn-danger">X</span>
+                                                        <span data-id="{{ $id }}" class="del btn btn-danger">X</span>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -79,6 +80,9 @@
 
         <a href="javascript:void(0)" id="do-save" class="btn btn-primary">Execute</a>
 
+        <br>
+        <br>
+        <br>
     </div>
 @endsection
 @section('script')
@@ -102,15 +106,7 @@
                         </td>
                     </tr>
                 `);
-            });
-
-            $(document).on('click', '#do-save', function() {
-                $(document).find('#edit-procedure').submit();
-            });
-            
-            $(document).on('click', '.del', function() {
-                let id = $(this).data('id');
-                $(document).find(`#tr-${id}`).remove();
+                $(document).find('#type').change();
             });
             
         })

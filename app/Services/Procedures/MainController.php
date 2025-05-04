@@ -58,10 +58,11 @@ class MainController
                     'result' => $result,
                 ]);
             } else {
+                // dd($request->all());
                 $id = DB::table('procedure_data')->max('id') + 1;
                 DB::table('procedure_data')->insert([
                     'id' => $id,
-                    'parameters' => json_encode(request('parameter')),
+                    'parameters' => json_encode(array_merge(array_values(request('parameter') ?? []), array_values(request('new_key') ?? []))),
                     'title' => Str::slug($request->title, '_'),
                     'leaver' => Str::slug($request->leaver, '_'),
                     'source' => $request->source,
@@ -80,23 +81,31 @@ class MainController
         try {
 
             $request = request();
-
             $procedure = DB::table('procedure_data')->where('id', $request->id)->first();
 
             $paramList = [];
             $properties = [];
-            $currentParams = json_decode($procedure->parameters);
-            foreach ($currentParams as $param) {
-                $paramList[] = "IN p_" . $param . " VARCHAR(50)";
-                $properties[] = $request->parameter[$param];
+
+            // $currentParams = json_decode($procedure->parameters);
+            $currentParams = request('parameter');
+            // dd( $currentParams, $request->all());
+            foreach ($currentParams as $k => $param) {
+                // dd($k, $param, $request->all(), $currentParams);
+                $paramList[] = "IN p_" . $request->name[$k] . " VARCHAR(50)";
+                $properties[] = $param;
             }
+            // dd($paramList, $properties);
             $newParams = is_array(request('new_key')) ? request('new_key') : [];
+            // $newParams = array_filter($newParams);
+            // $newParams = array_unique($newParams);
             foreach ($newParams as $key => $new_param) {
                 $paramList[] = "IN p_" . $new_param . " VARCHAR(50)";
                 $properties[] = $request->new_val[$key];
             }
 
             $params = implode(', ', $paramList);
+
+            // dd($params, $properties);
             if ($request->type == 'test') {
                 $result = self::testProcedure($params, $properties);
 
@@ -105,8 +114,22 @@ class MainController
                     'result' => $result,
                 ]);
             } else {
+
                 DB::table('procedure_data')->where('id', $request->id)->update([
-                    'parameters' => json_encode(array_merge(array_values(request('name')), (request('new_key') ?? []))),
+                    'parameters' => json_encode(
+                        array_merge(
+                            array_filter(
+                                array_unique(
+                                    array_values(request('name') ?? []),
+                                )
+                            ),
+                            array_filter(
+                                array_unique(
+                                    array_values(request('new_key') ?? []),
+                                )
+                            )
+                        )
+                    ),
                     'title' => Str::slug($request->title, '_'),
                     'leaver' => Str::slug($request->leaver, '_'),
                     'source' => $request->source,
@@ -139,6 +162,7 @@ class MainController
         END;
         SQL;
 
+        // dd($procedureSQL);
         DB::unprepared($procedureSQL);
 
         $q = implode(',', array_fill(0, count($properties), '?'));
