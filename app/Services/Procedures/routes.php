@@ -1,25 +1,25 @@
 <?php
 
-use App\Services\Procedures\MainController;
+use App\Services\Procedures\ProcedureController;
 
 Route::group(['prefix' => 'procedures'], function () {
   Route::get('/', function () {
-    return MainController::index();
-  });
+    return ProcedureController::index();
+  })->name('procedures.index');
 
   Route::get('create', function () {
-    return MainController::create();
+    return ProcedureController::create();
   })->name('procedures.create');
 
   Route::post('/save', function () {
-    return MainController::store();
+    return ProcedureController::store();
   })->name('procedures.save');
 
   Route::get('edit/{id}', function ($id) {
-    return MainController::edit($id);
+    return ProcedureController::edit($id);
   })->name('procedures.edit');
 
   Route::post('/update', function () {
-    return MainController::update();
+    return ProcedureController::update();
   })->name('procedures.update');
 });

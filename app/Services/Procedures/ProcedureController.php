@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
-class MainController
+class ProcedureController
 {
     public function __construct() {}
 
@@ -51,12 +51,9 @@ class MainController
 
                 $params = implode(', ', $paramList);
 
-                $result = self::testProcedure($params, $properties);
+                return self::testProcedure($params, $properties);
 
-                return response()->json([
-                    'success' => true,
-                    'result' => $result,
-                ]);
+                
             } else {
                 // dd($request->all());
                 $id = DB::table('procedure_data')->max('id') + 1;
@@ -107,12 +104,8 @@ class MainController
 
             // dd($params, $properties);
             if ($request->type == 'test') {
-                $result = self::testProcedure($params, $properties);
+                return self::testProcedure($params, $properties);
 
-                return response()->json([
-                    'success' => true,
-                    'result' => $result,
-                ]);
             } else {
 
                 DB::table('procedure_data')->where('id', $request->id)->update([
@@ -142,15 +135,22 @@ class MainController
         }
     }
 
-    public static function testProcedure($params, $properties)
+    public static function testProcedure($params, $properties, $procedure=null)
     {
         $request = request();
-
-        $leaver = '';
-        if (strlen($request->leaver)) {
-            $leaver = Str::slug($request->leaver, '_') . ":";
+        if(is_null($procedure)){
+            $leaver = '';
+            if (strlen($request->leaver)) {
+                $leaver = Str::slug($request->leaver, '_') . ":";
+            }
+            $title = Str::slug($request->title, '_');
+            $source =  $request->source;
+        }else{
+            $leaver = $procedure->leaver. ":";
+            $title = $procedure->title;
+            $source = $procedure->source;
         }
-        $title = Str::slug($request->title, '_');
+        
         $procedureSQL = <<<SQL
         DROP PROCEDURE IF EXISTS $title;
         
@@ -158,17 +158,23 @@ class MainController
             $params
         )
         $leaver BEGIN
-            $request->source
+            $source
         END;
         SQL;
 
-        // dd($procedureSQL);
         DB::unprepared($procedureSQL);
 
         $q = implode(',', array_fill(0, count($properties), '?'));
         $result = DB::select("CALL `$title`($q)", $properties);
-
-        return $result;
+        
+        $data = [
+            'success' => true,
+            'result' => $result,
+        ];
+        if(is_null($procedure)){
+            return response()->json($data);
+        }
+        return $data;
     }
 
     public static function error($e): string

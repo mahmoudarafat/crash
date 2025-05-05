@@ -16,8 +16,8 @@
         <table class="table table-bordered">
             <thead>
                 <th>#</th>
-                <th>Code Parameters</th>
-                <th>Your SourceCode</th>
+                <th>Title</th>
+                <th>Parameters</th>
                 <th></th>
             </thead>
             <tbody>
@@ -26,7 +26,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $procedure->title }}</td>
                         <td>{{ $procedure->parameters }}</td>
-                        <td> <a href="{{ route('procedures.edit', $procedure->id ) }}" class="btn btn-danger">Execute </a> </td>
+                        <td> <a href="{{ route('procedures.edit', $procedure->id ) }}" class="btn btn-danger">Execute / Update</a> </td>
                     </tr>
                 @endforeach
             </tbody>

@@ -1,11 +1,11 @@
 <html lang="en" >
 <head>
     <meta charset="UTF-8">
-    <title>Database Comparator</title>
+    <title>Procedure Tester</title>
     <?php
     $base_assets = asset('/');
     ?>
-    <link href="{{ $base_assets . 'services/database/bootstrap.min.css' }}" rel="stylesheet">
+    <link href="{{ $base_assets . 'services/procedures/bootstrap.min.css' }}" rel="stylesheet">
 
     <style>
         .card {
@@ -38,8 +38,8 @@
 </div>
 <input id="cpy-me" type="hidden">
 
-<script src="{{ $base_assets . 'services/database/jquery.min.js' }}"></script>
-<script src="{{ $base_assets . 'services/database/clipboard.min.js' }}"></script>
+<script src="{{ $base_assets . 'services/procedures/jquery.min.js' }}"></script>
+<script src="{{ $base_assets . 'services/procedures/clipboard.min.js' }}"></script>
 
 <script>
 
